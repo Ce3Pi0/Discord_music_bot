@@ -1,9 +1,14 @@
+import os
 import discord
 import asyncio
 from discord.ext import commands
 
 from help_cog import help_cog
 from music_cog import music_cog
+
+TOKEN = os.getenv("TOKEN")
+if not TOKEN:
+    raise RuntimeError("TOKEN environment variable not found.")
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -16,7 +21,6 @@ async def main():
     await bot.add_cog(help_cog(bot))
     await bot.add_cog(music_cog(bot))
 
+    await bot.start(TOKEN)
+
 asyncio.run(main())
-
-
-bot.run("OTk2OTIzNzE1MjI2OTc2MzE4.Gc7vhQ.TVDOOgEOzDMA4MWLxswY5p3_DDTS-OL5hJyHl0")
